@@ -5,7 +5,7 @@ using namespace std;
 int* kmp_next_array(const string& s){
     int* next = new int[s.length()]{0,0};//前两个数字是固定的
     int flag = 0;
-    for (int i = 2; i < s.length(); ++i){
+    for (int i = 2; i < s.length(); ++i){//从第三个开始才可能存在前后缀
         for(int j = i-1; j >=1;){
             if(s[i-1] == s[next[j]]){//递推查找最大公共前后缀
                 next[i] = next[j]+1;//通过next[j] ==> next[j+1];
