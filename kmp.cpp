@@ -1,7 +1,14 @@
 #include <iostream>
 #include <string>
 using namespace std;
+/*
+next数组中对应的是如果匹配到该位置的字符不匹配，应该跳转到前边第几个字符串。
+关于如何获得next的序列：
+根据的是next数组的前边所有向的递推关系
+如果temp[n-1] = temp[next[j]] ==> next[i] = next[i-1]+1
+否则递推往前j = next[j]
 
+ */
 int* kmp_next_array(const string& s){
     int* next = new int[s.length()]{0,0};//前两个数字是固定的
     int flag = 0;
@@ -41,8 +48,8 @@ int KMP_find(const string& temp, const string& root, int* next){//查找，缺�
 }
 
 int main(){
-    string root{"1abaabc"}, temp{"abaabc"};
+    string root{"qqqqqqqqqyuio1abaabc"}, temp{"abaabc"};
     int* next = kmp_next_array(temp);
     int pose = KMP_find(temp, root, next);
-    cout << pose << endl;    
+    cout << pose << endl;
 }
