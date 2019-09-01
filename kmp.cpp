@@ -1,13 +1,9 @@
-#include <vector>
 #include <iostream>
 #include <string>
 using namespace std;
 
 int* kmp_next_array(const string& s){
-    if(s.length() < 2){
-        cerr << "string too short" << endl; //KMP算法适用于长度大于等于2的模式串；
-    }
-    int* next = new int[s.length()]{-1,0};//前两个数字是固定的
+    int* next = new int[s.length()]{0,0};//前两个数字是固定的
     int flag = 0;
     for (int i = 2; i < s.length(); ++i){
         for(int j = i-1; j >=1;){
@@ -36,23 +32,18 @@ int KMP_find(const string& temp, const string& root, int* next){//查找，缺�
             continue;
         }
         else{
-            if(next[j] == -1) continue;
-            j = next[i];
-            --i;
+            if(j == 0) continue;//j还停留在第一个字符的位置, 而i则往前移
+            j = next[j]; //向右平移模式字符串
+            --i; //失配时保证i的位置不变
         }
     }
     return -1;
 }
 
 int main(){
-    string root{"qweqwabaabaaabrtyu"};
-    string temp{"abaabaaab"};
+    string root{"1abaabc"}, temp{"abaabc"};
     int* next = kmp_next_array(temp);
     int pose = KMP_find(temp, root, next);
-    //for(int i = 0; i < root.length(); ++i){
-    //    cout<< next[i];
-    //}
-    //cout << endl;
     cout << pose << endl;
 
     
